@@ -1,9 +1,8 @@
 package domain
 
 import (
-	"time"
-
 	"math/rand"
+	"time"
 
 	"github.com/google/uuid"
 )
@@ -12,7 +11,7 @@ type Status string
 
 const (
 	StatusPending  Status = "pending"
-	StatusApproved     Status = "approved"
+	StatusApproved Status = "approved"
 	StatusRejected Status = "rejected"
 )
 
@@ -29,10 +28,10 @@ type Invoice struct {
 }
 
 type CreditCard struct {
-	Number     string
-	CVV        string
-	ExpiryMonth int
-	ExpiryYear  int
+	Number         string
+	CVV            string
+	ExpiryMonth    int
+	ExpiryYear     int
 	CardholderName string
 }
 
@@ -40,10 +39,10 @@ func NewInvoice(accountID string, amount float64, description string, paymentTyp
 	if amount <= 0 {
 		return nil, ErrInvalidAmount
 	}
-	
+
 	lastDigits := card.Number[len(card.Number)-4:]
 
-	return &Invoice {
+	return &Invoice{
 		ID:             uuid.New().String(),
 		AccountID:      accountID,
 		Amount:         amount,
@@ -57,7 +56,7 @@ func NewInvoice(accountID string, amount float64, description string, paymentTyp
 }
 
 func (i *Invoice) Process() error {
-	if i.Amount > 1000 {
+	if i.Amount > 10000 {
 		return nil
 	}
 
@@ -78,7 +77,7 @@ func (i *Invoice) UpdateStatus(newStatus Status) error {
 	if i.Status != StatusPending {
 		return ErrInvalidStatus
 	}
-	
+
 	i.Status = newStatus
 	i.UpdatedAt = time.Now()
 	return nil

@@ -16,6 +16,7 @@ Content-Type: application/json
 GET {{baseUrl}}/accounts
 X-API-Key: {{apiKey}}
 
+
 ### Criar uma nova fatura
 # @name createInvoice
 POST {{baseUrl}}/invoice
